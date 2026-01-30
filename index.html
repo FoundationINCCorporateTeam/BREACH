@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Breach by Astroyds - Download</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 60px 40px;
+            max-width: 600px;
+            width: 100%;
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-size: 48px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+
+        .tagline {
+            color: #666;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .content {
+            margin: 40px 0;
+        }
+
+        .description {
+            color: #333;
+            line-height: 1.8;
+            font-size: 16px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .features {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .feature-icon {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 12px;
+            flex-shrink: 0;
+            font-size: 12px;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 40px;
+        }
+
+        .button {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .btn-download {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-download:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-open {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+            font-weight: 600;
+        }
+
+        .btn-open:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-open.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .status-message {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 13px;
+            color: #666;
+            min-height: 20px;
+        }
+
+        .status-message.success {
+            color: #27ae60;
+            font-weight: 600;
+        }
+
+        .status-message.error {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+
+        @media (max-width: 500px) {
+            .container {
+                padding: 40px 25px;
+            }
+
+            .logo {
+                font-size: 36px;
+            }
+
+            .buttons {
+                grid-template-columns: 1fr;
+            }
+
+            .button {
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #667eea;
+            border-top: 2px solid transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">BREACH</div>
+            <div class="tagline">by Astroyds</div>
+        </div>
+
+        <div class="content">
+            <p class="description">
+                Access powerful tools designed for your digital experience. Download and run Breach locally on your device.
+            </p>
+
+            <div class="features">
+                <div class="feature-item">
+                    <div class="feature-icon">✓</div>
+                    <span>Works offline after download</span>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">✓</div>
+                    <span>Regular content updates from CDN</span>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">✓</div>
+                    <span>Safe for Chromebook</span>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">✓</div>
+                    <span>No installation required</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button class="button btn-download" onclick="downloadFile()">
+                ⬇ Download
+            </button>
+            <button class="button btn-open disabled" id="openBtn" onclick="openFile()">
+                ▶ Open
+            </button>
+        </div>
+
+        <div class="status-message" id="statusMessage"></div>
+    </div>
+
+    <script>
+        // Generate random string for cache busting
+        function generateRandomString(length = 64) {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let result = '';
+            for (let i = 0; i < length; i++) {
+                result += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return result;
+        }
+
+        // Download the launcher HTML file
+        function downloadFile() {
+            const btn = event.target;
+            const status = document.getElementById('statusMessage');
+            
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner"></span> Downloading...';
+
+            // Fetch the launcher HTML
+            const randomId = generateRandomString(64);
+            const cdnUrl = `/security/cdn-files/breach-launcher.html?v=${randomId}`;
+
+            fetch(cdnUrl, { cache: 'no-store' })
+                .then(response => response.text())
+                .then(html => {
+                    // Create blob and download
+                    const blob = new Blob([html], { type: 'text/html' });
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'Breach.html';
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+
+                    // Save file path to localStorage and update UI
+                    localStorage.setItem('breachFileDownloaded', 'true');
+                    localStorage.setItem('breachFileName', 'Breach.html');
+                    
+                    status.textContent = '✓ Downloaded! Click "Open" to launch.';
+                    status.classList.add('success');
+                    
+                    // Enable open button
+                    document.getElementById('openBtn').classList.remove('disabled');
+                    document.getElementById('openBtn').disabled = false;
+
+                    btn.disabled = false;
+                    btn.innerHTML = '⬇ Download';
+                })
+                .catch(error => {
+                    console.error('Download error:', error);
+                    status.textContent = '✗ Download failed. Please try again.';
+                    status.classList.add('error');
+                    btn.disabled = false;
+                    btn.innerHTML = '⬇ Download';
+                });
+        }
+
+        // Open the downloaded file
+        function openFile() {
+            try {
+                // Since we can't access the file system directly, we'll create a new window
+                // and dynamically load the content
+                const downloaded = localStorage.getItem('breachFileDownloaded');
+                
+                if (!downloaded) {
+                    alert('Please download the file first!');
+                    return;
+                }
+
+                // Create a new window with the launcher
+                const randomId = generateRandomString(64);
+                const cdnUrl = `/security/cdn-files/breach-launcher.html?v=${randomId}`;
+                
+                window.open(cdnUrl, 'breach-launcher', 'width=1200,height=800');
+            } catch (error) {
+                console.error('Open error:', error);
+                alert('Unable to open file. Please ensure you have downloaded it first.');
+            }
+        }
+
+        // Check if file was downloaded on page load
+        function checkDownloadStatus() {
+            const downloaded = localStorage.getItem('breachFileDownloaded');
+            if (downloaded) {
+                document.getElementById('openBtn').classList.remove('disabled');
+                document.getElementById('openBtn').disabled = false;
+            }
+        }
+
+        // Initialize on load
+        window.addEventListener('load', checkDownloadStatus);
+    </script>
+</body>
+</html>
