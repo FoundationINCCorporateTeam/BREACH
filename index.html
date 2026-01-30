@@ -239,7 +239,7 @@
         </div>
 
         <div class="buttons">
-            <button class="button btn-download" onclick="downloadFile()">
+            <button class="button btn-download" onclick="downloadFile(event)">
                 ⬇ Download
             </button>
             <button class="button btn-open disabled" id="openBtn" onclick="openFile()">
@@ -260,8 +260,8 @@
             }
             return result;
         }
-        function downloadFile() {
-            const btn = event.target;
+        function downloadFile(event) {
+            const btn = (event && event.currentTarget) || (event && event.target) || document.querySelector('.btn-download');
             const status = document.getElementById('statusMessage');
             
             btn.disabled = true;
