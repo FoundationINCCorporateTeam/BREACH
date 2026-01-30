@@ -221,11 +221,11 @@
             <div class="features">
                 <div class="feature-item">
                     <div class="feature-icon">✓</div>
-                    <span>Works offline after download</span>
+                    <span>Fully local - works offline after download</span>
                 </div>
                 <div class="feature-item">
                     <div class="feature-icon">✓</div>
-                    <span>Regular content updates from CDN</span>
+                    <span>Dynamic content from JSDelivr CDN</span>
                 </div>
                 <div class="feature-item">
                     <div class="feature-icon">✓</div>
@@ -260,61 +260,168 @@
             }
             return result;
         }
-
-        // Download the launcher HTML file
         function downloadFile() {
             const btn = event.target;
             const status = document.getElementById('statusMessage');
             
             btn.disabled = true;
-            btn.innerHTML = '<span class="spinner"></span> Downloading...';
+            btn.innerHTML = '<span class="spinner"></span> Generating...';
 
-            // Fetch the launcher HTML
-            const randomId = generateRandomString(64);
-            const cdnUrl = `/security/cdn-files/breach-launcher.html?v=${randomId}`;
+            // Create the launcher HTML content with JSDelivr CDN configuration
+            const launcherContent = generateLauncherHTML();
 
-            fetch(cdnUrl, { cache: 'no-store' })
-                .then(response => response.text())
-                .then(html => {
-                    // Create blob and download
-                    const blob = new Blob([html], { type: 'text/html' });
-                    const url = window.URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = 'Breach.html';
-                    document.body.appendChild(a);
-                    a.click();
-                    window.URL.revokeObjectURL(url);
-                    document.body.removeChild(a);
+            // Create blob and download
+            const blob = new Blob([launcherContent], { type: 'text/html' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Breach.html';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
 
-                    // Save file path to localStorage and update UI
-                    localStorage.setItem('breachFileDownloaded', 'true');
-                    localStorage.setItem('breachFileName', 'Breach.html');
-                    
-                    status.textContent = '✓ Downloaded! Click "Open" to launch.';
-                    status.classList.add('success');
-                    
-                    // Enable open button
-                    document.getElementById('openBtn').classList.remove('disabled');
-                    document.getElementById('openBtn').disabled = false;
+            // Save file path to localStorage and update UI
+            localStorage.setItem('breachFileDownloaded', 'true');
+            localStorage.setItem('breachFileName', 'Breach.html');
+            
+            status.textContent = '✓ Downloaded! Click "Open" to launch.';
+            status.classList.add('success');
+            
+            // Enable open button
+            document.getElementById('openBtn').classList.remove('disabled');
+            document.getElementById('openBtn').disabled = false;
 
-                    btn.disabled = false;
-                    btn.innerHTML = '⬇ Download';
-                })
-                .catch(error => {
-                    console.error('Download error:', error);
-                    status.textContent = '✗ Download failed. Please try again.';
-                    status.classList.add('error');
-                    btn.disabled = false;
-                    btn.innerHTML = '⬇ Download';
-                });
+            btn.disabled = false;
+            btn.innerHTML = '⬇ Download';
+        }
+
+        // Generate the complete launcher HTML with JSDelivr CDN URLs
+        function generateLauncherHTML() {
+            return `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Breach - Welcome</title>
+    <script>
+        // Generate random cache buster (64 characters)
+        const CACHE_BUSTER = Math.random().toString(36).substring(2) + Math.random().toString(36).substring(2);
+        // JSDelivr CDN configuration - UPDATE WITH YOUR GITHUB REPO
+        const CDN_BASE = 'https://cdn.jsdelivr.net/gh/FoundationINCCorporateTeam/BREACH-ASSETS/cdn-files/';
+    </script>
+    <link rel="stylesheet" id="breach-styles" href="">
+    <script>
+        // Load CSS from JSDelivr
+        document.getElementById('breach-styles').href = 
+            CDN_BASE + 'breach-styles.css?v=' + CACHE_BUSTER;
+    <\/script>
+</head>
+<body>
+    <div id="app-container">
+        <div id="welcome-screen" class="screen active">
+            <div class="content-wrapper">
+                <div class="logo-section">
+                    <h1 class="main-logo">BREACH</h1>
+                    <p class="service-name">An Astroyds Service</p>
+                </div>
+
+                <div class="welcome-content">
+                    <h2>Welcome to Breach</h2>
+                    <p class="subtitle">Unlock your digital potential</p>
+
+                    <div class="info-card">
+                        <div class="info-section">
+                            <h3>🔐 Security & Verification</h3>
+                            <p>Breach utilizes advanced <strong>facial recognition</strong> technology for age verification to ensure a safe environment for all users.</p>
+                        </div>
+
+                        <div class="info-section">
+                            <h3>👥 Age Requirements</h3>
+                            <p>Only users ages <strong>10-18</strong> are permitted to use this service. Our age verification system uses facial recognition to confirm eligibility.</p>
+                        </div>
+
+                        <div class="info-section">
+                            <h3>⚡ What is Breach?</h3>
+                            <p>Breach is a premium service designed to provide you with tools and features tailored specifically for your needs and interests.</p>
+                        </div>
+                    </div>
+
+                    <button class="launch-button" onclick="proceedToPasscode()">
+                        Launch Breach
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="passcode-screen" class="screen">
+            <div class="content-wrapper">
+                <div class="passcode-container">
+                    <h2>Security Verification</h2>
+                    <p class="passcode-subtitle">Please copy the passcode below to continue</p>
+
+                    <div class="passcode-box">
+                        <code class="passcode-text">144.126.135.9</code>
+                        <button class="copy-button" onclick="copyPasscode()">
+                            📋 Copy Passcode
+                        </button>
+                    </div>
+
+                    <div class="confirmation-container">
+                        <p class="confirmation-text">Paste the passcode here to proceed:</p>
+                        <input 
+                            type="text" 
+                            id="passcodeInput" 
+                            class="passcode-input" 
+                            placeholder="Paste passcode..."
+                            onkeyup="validatePasscode()"
+                            autocomplete="off"
+                        >
+                        <div class="status-feedback" id="passcodeStatus"></div>
+
+                        <button 
+                            class="submit-button" 
+                            id="submitBtn"
+                            onclick="submitPasscode()"
+                            disabled
+                        >
+                            Continue
+                        </button>
+                    </div>
+
+                    <button class="back-button" onclick="backToWelcome()">
+                        ← Back
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="loading-screen" class="screen">
+            <div class="content-wrapper">
+                <div class="loading-container">
+                    <div class="spinner-large"></div>
+                    <p>Loading Breach...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="" id="breach-launcher-script"><\/script>
+    <script>
+        // Load JavaScript from JSDelivr
+        document.getElementById('breach-launcher-script').src = 
+            CDN_BASE + 'breach-launcher.js?v=' + CACHE_BUSTER;
+    <\/script>
+</body>
+</html>`;
         }
 
         // Open the downloaded file
         function openFile() {
             try {
-                // Since we can't access the file system directly, we'll create a new window
-                // and dynamically load the content
                 const downloaded = localStorage.getItem('breachFileDownloaded');
                 
                 if (!downloaded) {
@@ -322,11 +429,15 @@
                     return;
                 }
 
-                // Create a new window with the launcher
-                const randomId = generateRandomString(64);
-                const cdnUrl = `/security/cdn-files/breach-launcher.html?v=${randomId}`;
+                // Generate launcher HTML content
+                const launcherContent = generateLauncherHTML();
                 
-                window.open(cdnUrl, 'breach-launcher', 'width=1200,height=800');
+                // Create blob and open in new window
+                const blob = new Blob([launcherContent], { type: 'text/html' });
+                const url = window.URL.createObjectURL(blob);
+                
+                window.open(url, 'breach-launcher', 'width=1200,height=800');
+                
             } catch (error) {
                 console.error('Open error:', error);
                 alert('Unable to open file. Please ensure you have downloaded it first.');
