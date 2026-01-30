@@ -311,14 +311,478 @@
         // Generate random cache buster (64 characters)
         const CACHE_BUSTER = Math.random().toString(36).substring(2) + Math.random().toString(36).substring(2);
         // JSDelivr CDN configuration - UPDATE WITH YOUR GITHUB REPO
-        const CDN_BASE = 'https://cdn.jsdelivr.net/gh/FoundationINCCorporateTeam/BREACH-ASSETS/cdn-files/';
-    <\/script>
+        const CDN_BASE = 'https://cdn.jsdelivr.net/gh/FoundationINCCorporateTeam/BREACH-ASSETS/';
+    </scr` + `ipt>
     <link rel="stylesheet" id="breach-styles" href="">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        #app-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+            padding: 20px;
+            z-index: 10;
+        }
+
+        .screen.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            z-index: 100;
+        }
+
+        .content-wrapper {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 28px;
+            box-shadow: 0 25px 100px rgba(0, 0, 0, 0.25), 0 0 100px rgba(102, 126, 234, 0.1);
+            padding: 50px 45px;
+            max-width: 700px;
+            width: 100%;
+            backdrop-filter: blur(20px);
+            animation: slideUp 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Logo & Headers */
+        .logo-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .main-logo {
+            font-size: 54px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -2px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .service-name {
+            color: #999;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .welcome-content h2,
+        .passcode-container h2,
+        .instructions-container h2 {
+            font-size: 28px;
+            color: #1a1a1a;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 15px;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        /* Info Cards */
+        .info-card {
+            background: linear-gradient(135deg, rgba(245, 247, 250, 0.8) 0%, rgba(232, 236, 243, 0.8) 100%);
+            border-radius: 18px;
+            padding: 28px;
+            margin-bottom: 35px;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+        }
+
+        .info-section {
+            margin-bottom: 22px;
+        }
+
+        .info-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-section h3 {
+            font-size: 16px;
+            color: #222;
+            margin-bottom: 10px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-section p {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.7;
+            font-weight: 500;
+        }
+
+        /* Buttons */
+        .continue-button,
+        .copy-button,
+        .submit-button,
+        .back-button {
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+            outline: none;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-size: 14px;
+        }
+
+        .continue-button {
+            width: 100%;
+            padding: 18px 32px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 12px 32px rgba(102, 126, 234, 0.35);
+            font-size: 15px;
+        }
+
+        .continue-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 18px 48px rgba(102, 126, 234, 0.45);
+        }
+
+        .continue-button:active {
+            transform: translateY(-1px);
+        }
+
+        .copy-button {
+            width: 100%;
+            padding: 12px 20px;
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+            margin-top: 12px;
+            font-size: 14px;
+        }
+
+        .copy-button:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .copy-button:active {
+            transform: translateY(0);
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 14px 28px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 10px 28px rgba(102, 126, 234, 0.3);
+            font-size: 15px;
+            margin-top: 16px;
+        }
+
+        .submit-button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .submit-button:active:not(:disabled) {
+            transform: translateY(-1px);
+        }
+
+        .back-button {
+            width: 100%;
+            padding: 12px 24px;
+            background: #f5f5f5;
+            color: #667eea;
+            margin-top: 12px;
+            font-size: 14px;
+            border: 2px solid transparent;
+        }
+
+        .back-button:hover {
+            background: #efefef;
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        /* Instruction Box */
+        .instruction-box {
+            background: linear-gradient(135deg, rgba(245, 247, 250, 0.9) 0%, rgba(232, 236, 243, 0.9) 100%);
+            border-radius: 18px;
+            padding: 36px;
+            margin-bottom: 35px;
+            border-left: 5px solid #667eea;
+            text-align: center;
+        }
+
+        .instruction-text {
+            font-size: 15px;
+            color: #333;
+            margin-bottom: 16px;
+            line-height: 1.8;
+            font-weight: 500;
+        }
+
+        .instruction-text:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .passcode-display {
+            background: white;
+            border-radius: 14px;
+            padding: 24px;
+            margin: 28px 0;
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.12);
+            border: 2px solid rgba(102, 126, 234, 0.1);
+        }
+
+        .passcode-display code {
+            font-size: 26px;
+            font-weight: 900;
+            color: #667eea;
+            letter-spacing: 3px;
+            font-family: 'Courier New', 'Monaco', monospace;
+        }
+
+        /* Passcode Screen */
+        .passcode-container {
+            width: 100%;
+        }
+
+        .passcode-subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 28px;
+            font-weight: 600;
+        }
+
+        .passcode-box {
+            background: linear-gradient(135deg, rgba(245, 247, 250, 0.8) 0%, rgba(232, 236, 243, 0.8) 100%);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 28px;
+            border: 2px solid rgba(102, 126, 234, 0.15);
+            text-align: center;
+        }
+
+        .passcode-text {
+            font-size: 28px;
+            font-weight: 900;
+            color: #667eea;
+            letter-spacing: 2px;
+            font-family: 'Courier New', monospace;
+            display: block;
+            margin-bottom: 0;
+        }
+
+        .confirmation-container {
+            margin-top: 28px;
+        }
+
+        .confirmation-text {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 14px;
+            font-weight: 600;
+            display: block;
+        }
+
+        .passcode-input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.25s ease;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .passcode-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .status-feedback {
+            font-size: 13px;
+            font-weight: 700;
+            margin: 12px 0;
+            min-height: 18px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Loading Screen */
+        .loading-container {
+            text-align: center;
+            color: white;
+        }
+
+        .spinner-large {
+            width: 90px;
+            height: 90px;
+            border: 5px solid rgba(255, 255, 255, 0.2);
+            border-top: 5px solid white;
+            border-radius: 50%;
+            animation: spinLarge 1.2s linear infinite;
+            margin: 0 auto 32px;
+        }
+
+        @keyframes spinLarge {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-container p {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+        }
+
+        /* Instructions Container */
+        .instructions-container {
+            width: 100%;
+        }
+
+        .instructions-container h2 {
+            margin-bottom: 32px;
+        }
+
+        /* Responsive */
+        @media (max-width: 650px) {
+            .content-wrapper {
+                padding: 40px 28px;
+                border-radius: 24px;
+            }
+
+            .main-logo {
+                font-size: 42px;
+            }
+
+            .welcome-content h2,
+            .passcode-container h2,
+            .instructions-container h2 {
+                font-size: 24px;
+            }
+
+            .info-card {
+                padding: 22px;
+                margin-bottom: 25px;
+            }
+
+            .instruction-box {
+                padding: 28px;
+            }
+
+            .continue-button,
+            .submit-button {
+                padding: 15px 24px;
+                font-size: 14px;
+            }
+
+            .passcode-display code {
+                font-size: 20px;
+                letter-spacing: 2px;
+            }
+
+            .passcode-text {
+                font-size: 22px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .content-wrapper {
+                padding: 32px 20px;
+            }
+
+            .main-logo {
+                font-size: 36px;
+            }
+
+            .welcome-content h2,
+            .passcode-container h2,
+            .instructions-container h2 {
+                font-size: 20px;
+            }
+
+            .info-section h3 {
+                font-size: 15px;
+            }
+
+            .info-section p {
+                font-size: 13px;
+            }
+
+            .instruction-text {
+                font-size: 14px;
+            }
+
+            .passcode-display code {
+                font-size: 18px;
+                letter-spacing: 1px;
+            }
+        }
+    </style>
     <script>
         // Load CSS from JSDelivr
         document.getElementById('breach-styles').href = 
             CDN_BASE + 'breach-styles.css?v=' + CACHE_BUSTER;
-    <\/script>
+    </scr` + `ipt>
 </head>
 <body>
     <div id="app-container">
@@ -350,8 +814,8 @@
                         </div>
                     </div>
 
-                    <button class="launch-button" onclick="proceedToPasscode()">
-                        Launch Breach
+                    <button class="continue-button" onclick="proceedToInstructions()">
+                        Continue
                     </button>
                 </div>
             </div>
@@ -407,14 +871,125 @@
                 </div>
             </div>
         </div>
+
+        <div id="instructions-screen" class="screen">
+            <div class="content-wrapper">
+                <div class="instructions-container">
+                    <h2>Important Instructions</h2>
+                    <div class="instruction-box">
+                        <p class="instruction-text">When you click "Launch Now" below, a new window will open with the application.</p>
+                        <p class="instruction-text">Your access code is:</p>
+                        <div class="passcode-display">
+                            <code>144.126.135.9</code>
+                            <button class="copy-button" onclick="copyInstructionPasscode()" style="margin-top: 12px;">
+                                📋 Copy Code
+                            </button>
+                        </div>
+                        <p class="instruction-text">Click "Launch Now" to proceed.</p>
+                    </div>
+                    <button class="continue-button" onclick="launchBreach()">
+                        Launch Now
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <script src="" id="breach-launcher-script"><\/script>
     <script>
-        // Load JavaScript from JSDelivr
-        document.getElementById('breach-launcher-script').src = 
-            CDN_BASE + 'breach-launcher.js?v=' + CACHE_BUSTER;
-    <\/script>
+        // Launcher JavaScript functions
+        function proceedToInstructions() {
+            document.getElementById('welcome-screen').classList.remove('active');
+            document.getElementById('instructions-screen').classList.add('active');
+        }
+
+        function proceedFromInstructions() {
+            document.getElementById('instructions-screen').classList.remove('active');
+            document.getElementById('passcode-screen').classList.add('active');
+        }
+
+        function backToWelcome() {
+            document.getElementById('instructions-screen').classList.remove('active');
+            document.getElementById('welcome-screen').classList.add('active');
+        }
+
+        function copyPasscode() {
+            const passcode = '144.126.135.9';
+            navigator.clipboard.writeText(passcode).then(() => {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = '✓ Copied!';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                }, 2000);
+            });
+        }
+
+        function copyInstructionPasscode() {
+            const passcode = '144.126.135.9';
+            navigator.clipboard.writeText(passcode).then(() => {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = '✓ Copied!';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                }, 2000);
+            });
+        }
+
+        function validatePasscode() {
+            const input = document.getElementById('passcodeInput').value;
+            const status = document.getElementById('passcodeStatus');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            if (input === '144.126.135.9') {
+                status.textContent = '✓ Valid passcode';
+                status.style.color = '#27ae60';
+                submitBtn.disabled = false;
+            } else if (input.length > 0) {
+                status.textContent = '✗ Invalid passcode';
+                status.style.color = '#e74c3c';
+                submitBtn.disabled = true;
+            } else {
+                status.textContent = '';
+                submitBtn.disabled = true;
+            }
+        }
+
+        function launchBreach() {
+            // Fetch domain from GitHub
+            fetch('https://raw.githubusercontent.com/FoundationINCCorporateTeam/BREACH/refs/heads/main/domain.txt')
+                .then(response => response.text())
+                .then(domain => {
+                    domain = domain.trim();
+                    const newWindow = window.open('about:blank', '_blank');
+                    if (newWindow) {
+                        newWindow.document.write(\`
+                            <!DOCTYPE html>
+                            <html>
+                            <head>
+                                <meta charset="UTF-8">
+                                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                                <title>Breach</title>
+                                <style>
+                                    * { margin: 0; padding: 0; box-sizing: border-box; }
+                                    html, body { width: 100%; height: 100%; overflow: hidden; }
+                                    iframe { width: 100%; height: 100%; border: none; display: block; }
+                                </style>
+                            </head>
+                            <body>
+                                <iframe src="\${domain}" allowfullscreen></iframe>
+                            </body>
+                            </html>
+                        \`);
+                        newWindow.document.close();
+                    }
+                })
+                .catch(err => {
+                    console.error('Failed to fetch domain:', err);
+                    alert('Unable to load. Please try again.');
+                });
+        }
+    </scr` + `ipt>
 </body>
 </html>`;
         }
